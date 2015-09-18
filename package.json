@@ -1,0 +1,12 @@
+{
+  "name": "next-caltrain",
+  "version": "0.0.1",
+  "description": "An app to tell you which Caltrain you can take next",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
