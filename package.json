@@ -2,11 +2,20 @@
   "name": "next-caltrain",
   "version": "0.0.1",
   "description": "An app to tell you which Caltrain you can take next",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "browserify": "^11.1.0",
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "request": "^2.62.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
   }
 }
