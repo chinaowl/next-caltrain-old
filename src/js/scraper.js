@@ -14,6 +14,28 @@ exports.scrapeCaltrainWebsite = function () {
             var nbTrainIndex = [];
             var nbStationIndex = [];
 
+            $('table .NB_TT thead tr').children().each(function (index, element) {
+                var trainNumber = parseInt($(this).text().replace(/\*/g, ""), 10);
+                if (trainNumber) {
+                    nbTrains[trainNumber] = {};
+                    nbTrainIndex.push(trainNumber + '');
+                }
+            });
+
+            $('table .NB_TT tbody tr').each(function (index, element) {
+                var stationName = $(this).children('th').next().children().text();
+                var trainsThroughStation = [];
+                $(this).children('td').each(function (index, element) {
+                    var time = $(this).text();
+                    if (time.indexOf(':') > -1) {
+                        trainsThroughStation.push(nbTrainIndex[index]);
+                        nbTrains[nbTrainIndex[index]][stationName] = time;
+                    }
+                });
+                nbStations[stationName] = trainsThroughStation;
+                nbStationIndex.push(stationName);
+            });
+
             var json = {
                 nbTrains: nbTrains,
                 nbStations: nbStations,
@@ -21,11 +43,11 @@ exports.scrapeCaltrainWebsite = function () {
                 nbStationIndex: nbStationIndex
             };
 
-            fs.writeFile('./public/data.json', JSON.stringify(json), function (error) {
+            fs.writeFile('./src/js/data.json', JSON.stringify(json, null, 4), function (error) {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log('File successfully written! Check public/data.json');
+                    console.log('File successfully written! Check folder for data.json');
                 }
             });
         } else {

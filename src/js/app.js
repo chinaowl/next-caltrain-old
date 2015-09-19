@@ -1,5 +1,12 @@
 'use strict';
 
+var ko = require('knockout');
+var data = require('./data.json');
+
 (function () {
-    console.log('hello');
+    var vm = {
+        stations: data.nbStationIndex
+    };
+
+    ko.applyBindings(vm);
 })();

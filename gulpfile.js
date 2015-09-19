@@ -1,10 +1,15 @@
 'use strict';
 
 var gulp = require('gulp');
+var del = require('del');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var sass = require('gulp-sass');
 var shell = require('gulp-shell');
+
+gulp.task('clean', function () {
+    del(['./public/*', '!./public/index.html']);
+});
 
 gulp.task('js', function () {
     browserify('./src/js/app.js')
@@ -19,7 +24,7 @@ gulp.task('css', function () {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('build', ['js', 'css']);
+gulp.task('build', ['clean', 'js', 'css']);
 
 gulp.task('server', shell.task('node server.js'));
 

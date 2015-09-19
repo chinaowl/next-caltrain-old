@@ -5,10 +5,22 @@
     <title>Next Caltrain</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <script src="bundle.js"></script>
 </head>
 <body>
-    Hello, world!
+    <h1>Next Caltrain</h1>
+
+    <form>
+        I'm traveling from
+        <select data-bind="foreach: stations">
+            <option value="" data-bind="text: $data"></option>
+        </select>
+        to
+        <select data-bind="foreach: stations">
+            <option value="" data-bind="text: $data"></option>
+        </select>.
+        <button>What train should I take?</button>
+    </form>
+
+    <script src="bundle.js"></script>
 </body>
 </html>
