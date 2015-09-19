@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "gulp browserify"
+    "postinstall": "gulp build"
   },
   "dependencies": {
     "browserify": "^11.1.0",
