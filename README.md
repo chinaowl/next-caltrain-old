@@ -6,8 +6,7 @@ To run locally:
 
 ```
 npm install
-grunt browserify
-node server.js
+gulp
 ```
 
 View on Heroku [here](http://shielded-atoll-5999.herokuapp.com)
