@@ -14,11 +14,8 @@
     "fs": "0.0.2",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4",
+    "gulp-shell": "^0.4.3",
     "request": "^2.62.0",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.9.3",
-    "gulp-shell": "^0.4.3"
   }
 }
