@@ -15,7 +15,7 @@ exports.scrapeCaltrainWebsite = function () {
             var nbStationIndex = [];
 
             $('table .NB_TT thead tr').children().each(function (index, element) {
-                var trainNumber = parseInt($(this).text().replace(/\*/g, ""), 10);
+                var trainNumber = parseInt($(this).text().replace(/\*/g, ''), 10);
                 if (trainNumber) {
                     nbTrains[trainNumber] = {};
                     nbTrainIndex.push(trainNumber + '');
@@ -25,13 +25,30 @@ exports.scrapeCaltrainWebsite = function () {
             $('table .NB_TT tbody tr').each(function (index, element) {
                 var stationName = $(this).children('th').next().children().text();
                 var trainsThroughStation = [];
+
+                var am = true;
                 $(this).children('td').each(function (index, element) {
-                    var time = $(this).text();
-                    if (time.indexOf(':') > -1) {
+                    var timeText = $(this).text();
+                    if (timeText.match(/12:../)) {
+                        am = !am;
+                    }
+                    if (timeText.indexOf(':') > -1) {
+                        var split = timeText.split(':');
+                        if (!am) {
+                            if (split[0] != 12) {
+                                split[0] = parseInt(split[0]) + 12;
+                            }
+                            timeText = split[0] + ':' + split[1];
+                        } else { // edge case: 12:00 midnight becomes 0:00
+                            if (split[0] == 12) {
+                                timeText = '0:' + split[1];
+                            }
+                        }
                         trainsThroughStation.push(nbTrainIndex[index]);
-                        nbTrains[nbTrainIndex[index]][stationName] = time;
+                        nbTrains[nbTrainIndex[index]][stationName] = timeText;
                     }
                 });
+
                 nbStations[stationName] = trainsThroughStation;
                 nbStationIndex.push(stationName);
             });

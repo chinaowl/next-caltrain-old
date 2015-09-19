@@ -9,17 +9,21 @@
 <body>
     <h1>Next Caltrain</h1>
 
-    <form>
+    <form data-bind="submit: getNextTrain">
         I'm traveling from
-        <select data-bind="foreach: stations">
-            <option value="" data-bind="text: $data"></option>
-        </select>
+        <select data-bind="options: stations, value: origin, optionsCaption: 'this station'"></select>
         to
-        <select data-bind="foreach: stations">
-            <option value="" data-bind="text: $data"></option>
-        </select>.
-        <button>What train should I take?</button>
+        <select data-bind="options: stations, value: destination, optionsCaption: 'that station'"></select>.
+        <button type="submit">What train should I take?</button>
     </form>
+
+    <div data-bind="if: result.trainNumber()">
+        You should take train <span data-bind="text: result.trainNumber()"></span>
+        from <span data-bind="text: origin"></span>
+        at <span data-bind="text: result.departureTime"></span>
+        to get to <span data-bind="text: destination"></span>
+        at <span data-bind="text: result.arrivalTime"></span>.
+    </div>
 
     <script src="bundle.js"></script>
 </body>
