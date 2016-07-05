@@ -24,12 +24,12 @@
     $.get(url).done(function(data) {
       data.forEach(function(item) {
         var departureTime = moment({
-          hour: item.departure_time.hours === 24 ? 12 : item.departure_time.hours,
+          hour: item.departure_time.hours > 23 ? item.departure_time.hours - 12 : item.departure_time.hours,
           minute: item.departure_time.minutes
         });
 
         var arrivalTime = moment({
-          hour: item.arrival_time.hours === 24 ? 12 : item.arrival_time.hours,
+          hour: item.arrival_time.hours > 23 ? item.arrival_time.hours - 12 : item.arrival_time.hours,
           minute: item.arrival_time.minutes
         });
 

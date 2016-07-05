@@ -1,7 +1,54 @@
+$font-stack: 'Bitter', serif;
+
+$dark-color: #112d4e;
+$medium-color: #3f72af;
+$light-color: #dbe2ef;
+$lightest-color: #f9f7f7;
+
 body {
-  font-family: 'Bitter', sans-serif;
+  font-family: $font-stack;
 }
 
-.button {
+th, td {
+  padding: 0.5em;
+  text-align: center;
+}
+
+thead {
+  th {
+    background-color: $medium-color;
+    color: $lightest-color;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+  }
+}
+
+tbody {
+  tr:nth-child(odd) {
+    background-color: $light-color;
+  }
+}
+
+button {
   display: block;
+  border: none;
+  font-family: $font-stack;
+  font-size: 1.5em;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  background-color: $dark-color;
+  color: $lightest-color;
+  padding: 0.5em;
+}
+
+.wrapper {
+  margin: 0 1em 1.5em;
+}
+
+.header {
+  color: $medium-color;
+}
+
+.form__row {
+  margin: 1em 0;
 }
