@@ -21,7 +21,7 @@ function connectToDatabase(query, params, callback) {
 }
 
 app.get('/stops', function(req, res) {
-  var query = 'select stops.stop_name from stops';
+  var query = 'select stops.stop_name from stops where stops.platform_code is not null';
   connectToDatabase(query, null, function(result) {
     var finalResult = _.uniq(_.flatMap(result, function(item) {
       return item.stop_name;
