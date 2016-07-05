@@ -1,5 +1,5 @@
-.idea/
-node_modules/
-public/bundle.js
-public/style.css
-public/data.json
+.idea
+.DS_Store
+node_modules
+public
+tables.sql

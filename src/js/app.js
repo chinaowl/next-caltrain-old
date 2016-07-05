@@ -1,43 +1,36 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    var ko = require('knockout');
-    var moment = require('moment');
-    var data = require('./data.json');
-    var _forEach = require('lodash/collection/forEach');
-    var _intersection = require('lodash/array/intersection');
+  var ko = require('knockout');
+  var $ = require('jquery');
 
-    var vm = {
-        stations: data.nbStationIndex,
-        origin: ko.observable(),
-        destination: ko.observable(),
-        result: {
-            trainNumber: ko.observable(),
-            departureTime: ko.observable(),
-            arrivalTime: ko.observable()
-        }
-    };
+  var API_NEXT = '/next';
+  var API_STOPS = '/stops';
 
-    vm.getNextTrain = function () {
-        var now = moment();
-        var commonTrains = _intersection(data.nbStations[vm.origin()], data.nbStations[vm.destination()]);
+  var vm = {
+    stops: ko.observableArray(),
+    origin: ko.observable(),
+    destination: ko.observable(),
+    direction: ko.observable(),
+    result: ko.observableArray()
+  };
 
-        _forEach(commonTrains, function (train) {
-            var trainTimeString = data.nbTrains[train][vm.origin()];
-            var split = trainTimeString.split(':');
-            var trainTime = moment({
-                hour: split[0],
-                minute: split[1]
-            });
+  vm.getNextTrain = function() {
+    vm.direction(vm.stops.indexOf(vm.origin()) < vm.stops.indexOf(vm.destination()) ? 'SB' : 'NB');
+    var url = [API_NEXT, vm.origin(), vm.destination(), vm.direction()].join('/');
 
-            if (now.isBefore(trainTime)) {
-                vm.result.trainNumber(train);
-                vm.result.departureTime(trainTimeString);
-                vm.result.arrivalTime(data.nbTrains[train][vm.destination()]);
-                return false;
-            }
-        });
-    };
+    $.get(url).done(function(data) {
+      console.log(data);
+      vm.result(data);
+    });
+  };
 
-    ko.applyBindings(vm);
+  (function getStops() {
+    $.get(API_STOPS).done(function(data) {
+      console.log(data);
+      vm.stops(data);
+    });
+  })();
+
+  ko.applyBindings(vm);
 })();

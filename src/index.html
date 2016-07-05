@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+  <title>Next Caltrain</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Bitter:700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Next Caltrain</h1>
+
+  <form data-bind="submit: getNextTrain">
+    <div>
+      <label for="origin">Origin: </label>
+      <select id="origin" data-bind="options: stops, value: origin"></select>
+    </div>
+
+    <div>
+      <label for="destination">Destination: </label>
+      <select id="destination" data-bind="options: stops, value: destination"></select>
+    </div>
+
+    <button class="button" type="submit">What train do I take?</button>
+  </form>
+
+  <div data-bind="if: result().length > 0">
+    <table>
+      <thead>
+      <tr><th>Train #</th><th>Departure time</th><th>Arrival time</th></tr>
+      </thead>
+      <tbody data-bind="foreach: result">
+      <tr>
+        <td><span data-bind="text: $parent.direction"></span><span data-bind="text: trip_id"></span></td>
+        <td data-bind="text: departure_time.hours + ':' + departure_time.minutes"></td>
+        <td data-bind="text: arrival_time.hours + ':' + arrival_time.minutes"></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    <!--<div data-bind="foreach: result">-->
+      <!--<div>-->
+        <!--<span data-bind="text: $parent.direction"></span><span data-bind="text: trip_id"></span>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--You should take train <span data-bind="text: result.trainNumber()"></span> from <span data-bind="text: origin"></span> at <span data-bind="text: result.departureTime"></span> to get to <span-->
+    <!--data-bind="text: destination"></span> at <span data-bind="text: result.arrivalTime"></span>.-->
+  </div>
+
+  <script src="bundle.js"></script>
+</body>
+
+</html>
