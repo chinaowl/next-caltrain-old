@@ -36,8 +36,8 @@
       <tbody data-bind="foreach: result">
       <tr>
         <td><span data-bind="text: $parent.direction"></span><span data-bind="text: trip_id"></span></td>
-        <td data-bind="text: departure_time.hours + ':' + departure_time.minutes"></td>
-        <td data-bind="text: arrival_time.hours + ':' + arrival_time.minutes"></td>
+        <td data-bind="text: departure_time"></td>
+        <td data-bind="text: arrival_time"></td>
       </tr>
       </tbody>
     </table>

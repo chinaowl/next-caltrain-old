@@ -1,7 +1,7 @@
 {
   "name": "next-caltrain",
   "version": "0.0.1",
-  "description": "An app to tell you which Caltrain you can take next",
+  "description": "A website that tells you which Caltrain you can take next",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -17,7 +17,7 @@
     "jquery": "^3.0.0",
     "knockout": "^3.3.0",
     "lodash": "^4.13.1",
-    "moment": "^2.10.6",
+    "moment": "^2.14.1",
     "pg": "^6.0.1",
     "vinyl-source-stream": "^1.1.0"
   }
