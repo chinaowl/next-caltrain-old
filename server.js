@@ -39,8 +39,8 @@ app.get('/next/:origin/:destination/:direction', function(req, res) {
     'where (stops.stop_name=$1 ' +
     'or stops.stop_name=$2) ' +
     'and stops.platform_code=$3 ' +
-    'and trips.service_id=\'CT-16APR-Caltrain-Weekday-01\' ' +
-    'and stop_times.departure_time > $4 ' +
+    'and trips.service_id=$4 ' +
+    'and stop_times.departure_time > $5 ' +
     'group by trips.trip_id having count(trips.trip_id) > 1) t ' +
     'join stop_times on t.trip_id = stop_times.trip_id ' +
     'join stops on stops.stop_id = stop_times.stop_id ' +
@@ -50,7 +50,23 @@ app.get('/next/:origin/:destination/:direction', function(req, res) {
   var date = new Date();
   var currentTime = date.getHours() + ':' + date.getMinutes();
 
-  connectToDatabase(query, [req.params.origin, req.params.destination, req.params.direction, currentTime], function(result) {
+  var serviceIdMap = {
+    weekday: 'CT-16APR-Caltrain-Weekday-01',
+    saturday: 'CT-16APR-Caltrain-Saturday-02',
+    sunday: 'CT-16APR-Caltrain-Sunday-02'
+  };
+
+  var serviceId;
+
+  if (date.getDay() === 0) {
+    serviceId = serviceIdMap.sunday;
+  } else if (date.getDay() === 6) {
+    serviceId = serviceIdMap.saturday;
+  } else {
+    serviceId = serviceIdMap.weekday;
+  }
+
+  connectToDatabase(query, [req.params.origin, req.params.destination, req.params.direction, serviceId, currentTime], function(result) {
     var finalResult = [];
 
     for (var i = 0; i < result.length; i += 2) {
